@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   productsSection.innerHTML = renderProducts(companyData.products);
   systemsSection.innerHTML = renderSystems(companyData.systems);
   contactSection.innerHTML = renderContact(companyData.contact);
-  footerContainer.innerHTML = renderFooter();
+  footerContainer.innerHTML = renderFooter(companyData.navigation);
 
   // Jalankan fungsionalitas (menu, scroll) SETELAH HTML di-inject
   setupEventListeners();
