@@ -1,11 +1,11 @@
 {
-  "name": "ohm-profile-vite",
+  "name": "ohm-profile",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "tailwindcss --input ./src/style.css --output ./src/dist.css --watch & vite",
-    "build": "tailwindcss --input ./src/style.css --output ./src/dist.css --minify && vite build",
+    "dev": "vite",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
