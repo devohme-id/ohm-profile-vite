@@ -10,6 +10,9 @@ export default {
         // Ini warna kustom Anda
         'ohm-red': '#DB2777',
         'ohm-red-dark': '#be185d', // Ini versi lebih gelapnya untuk hover
+      },
+      backgroundImage: {
+        'hero-factory': "url('/images/factory.jpg')",
       }
     },
   },
