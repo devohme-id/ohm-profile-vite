@@ -1,16 +1,29 @@
 // src/components/services.js
 
-// PASTIKAN ADA KATA 'export' DI SINI
 export function renderServices(data) {
+  const itemsHTML = data.items
+    .map(
+      (service) => `
+    <div class="bg-white rounded-lg border border-slate-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col overflow-hidden">
 
-  const itemsHTML = data.items.map(service => `
-    <div class="bg-white p-6 rounded-lg border border-slate-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-      <div class="mb-4">
-        ${service.icon} </div>
-      <h3 class="text-xl font-bold text-slate-900 mb-2">${service.title}</h3>
-      <p class="text-slate-600 leading-relaxed">${service.description}</p>
+      <div class="h-48 w-full overflow-hidden">
+        <img
+          src="${service.imageUrl}"
+          alt="Proses ${service.title}"
+          class="w-full h-full object-cover"
+        >
+      </div>
+
+      <div class="p-6 flex flex-col grow">
+        <div class="mb-4">
+          ${service.icon} </div>
+        <h3 class="text-xl font-bold text-slate-900 mb-2">${service.title}</h3>
+        <p class="text-slate-600 leading-relaxed grow">${service.description}</p>
+      </div>
     </div>
-  `).join('');
+  `
+    )
+    .join("");
 
   return `
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

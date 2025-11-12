@@ -1,52 +1,76 @@
 // src/main.js
 
-import './style.css'
-import { companyData } from './api/data.js'
+import "./style.css";
+import "@splidejs/splide/css";
+import Splide from "@splidejs/splide";
 
-import { renderNavbar } from './components/navigation.js'
-import { renderHero } from './components/hero.js'
-import { renderAbout } from './components/about.js'
-import { renderMilestones } from './components/milestones.js'
-import { renderServices } from './components/services.js'
-import { renderProducts } from './components/products.js'
-import { renderSystems } from './components/systems.js'
-import { renderContact } from './components/contact.js'
-import { renderFooter } from './components/footer.js'
+window.Splide = Splide;
+
+import { companyData } from "./api/data.js";
+
+import { renderNavbar } from "./components/navigation.js";
+import { renderHero } from "./components/hero.js";
+import { renderAbout } from "./components/about.js";
+import { renderClients } from "./components/clients.js"; // <-- TAMBAHKAN INI
+import { renderMilestones } from "./components/milestones.js";
+import { renderServices } from "./components/services.js";
+import { renderProducts } from "./components/products.js";
+import { renderSystems } from "./components/systems.js";
+import { renderQuality } from "./components/quality.js";
+import { renderContact } from "./components/contact.js";
+import { renderFooter } from "./components/footer.js";
 
 // Fungsi "Render" Halaman
-document.addEventListener('DOMContentLoaded', () => {
-
+document.addEventListener("DOMContentLoaded", () => {
   // Ambil "cangkang" kosong
-  const navbarContainer = document.querySelector('#navbar-container');
-  const heroSection = document.querySelector('#home');
-  const aboutSection = document.querySelector('#about');
-  const milestonesSection = document.querySelector('#milestones');
-  const servicesSection = document.querySelector('#services');
-  const productsSection = document.querySelector('#products');
-  const systemsSection = document.querySelector('#systems');
-  const contactSection = document.querySelector('#contact');
-  const footerContainer = document.querySelector('#footer-container');
+  const navbarContainer = document.querySelector("#navbar-container");
+  const heroSection = document.querySelector("#home");
+  const aboutSection = document.querySelector("#about");
+  const clientsSection = document.querySelector("#clients"); // <-- TAMBAHKAN INI
+  const milestonesSection = document.querySelector("#milestones");
+  const servicesSection = document.querySelector("#services");
+  const productsSection = document.querySelector("#products");
+  const systemsSection = document.querySelector("#systems");
+  const qualitySection = document.querySelector("#quality");
+  const contactSection = document.querySelector("#contact");
+  const footerContainer = document.querySelector("#footer-container");
 
   // Inject HTML dengan data baru
   // Perhatikan perubahan di baris navbar, hero, dan contact
   navbarContainer.innerHTML = renderNavbar(companyData.navigation);
   heroSection.innerHTML = renderHero(companyData.hero);
   aboutSection.innerHTML = renderAbout(companyData.about);
+  clientsSection.innerHTML = renderClients(companyData.clients); // <-- TAMBAHKAN INI
   milestonesSection.innerHTML = renderMilestones(companyData.milestones);
   servicesSection.innerHTML = renderServices(companyData.services);
   productsSection.innerHTML = renderProducts(companyData.products);
   systemsSection.innerHTML = renderSystems(companyData.systems);
+  qualitySection.innerHTML = renderQuality(companyData.quality);
   contactSection.innerHTML = renderContact(companyData.contact);
   footerContainer.innerHTML = renderFooter(companyData.navigation);
+
+  // Splide Image Caraousel
+  new Splide(".splide", {
+    type: "fade",
+    rewind: true,
+    cover: true,
+    autoplay: true,
+    arrows: false,
+    pagination: false,
+    pauseOnHover: false,
+    pauseOnFocus: false,
+    waitForTransition: true,
+    // lazyLoad: 'nearby'
+    // width: '80%',
+    // height: '80%'
+  }).mount();
 
   // Jalankan fungsionalitas (menu, scroll) SETELAH HTML di-inject
   setupEventListeners();
 });
 
-
 // Fungsi untuk semua fungsionalitas (menu, scroll, dll)
 function setupEventListeners() {
-
   // --- FUNGSI MENU MOBILE (HAMBURGER) ---
   const hamburgerBtn = document.getElementById("hamburger-btn");
   const mobileMenu = document.getElementById("mobile-menu");
@@ -67,7 +91,7 @@ function setupEventListeners() {
 
   // Fungsi untuk tutup menu (dipakai di 2 tempat)
   const closeMenu = () => {
-    if(!mobileMenu.classList.contains("hidden")) {
+    if (!mobileMenu.classList.contains("hidden")) {
       mobileMenu.classList.add("hidden");
       iconOpen.classList.remove("hidden");
       iconClose.classList.add("hidden");
@@ -75,7 +99,7 @@ function setupEventListeners() {
   };
 
   // 1. Tutup menu saat link di-klik
-  navLinks.forEach(link => {
+  navLinks.forEach((link) => {
     link.addEventListener("click", closeMenu);
   });
 
@@ -83,14 +107,15 @@ function setupEventListeners() {
   window.addEventListener("scroll", () => {
     let current = "home"; // Default ke home
 
-    sections.forEach(section => {
+    sections.forEach((section) => {
       const sectionTop = section.offsetTop;
-      if (pageYOffset >= (sectionTop - 80)) { // 80px offset untuk navbar
+      if (pageYOffset >= sectionTop - 80) {
+        // 80px offset untuk navbar
         current = section.getAttribute("id");
       }
     });
 
-    navLinks.forEach(a => {
+    navLinks.forEach((a) => {
       a.classList.remove("text-ohm-red", "font-bold");
       a.classList.add("text-slate-600");
 

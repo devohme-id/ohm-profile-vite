@@ -1,13 +1,24 @@
 // src/components/products.js
+
 export function renderProducts(data) {
 
   const itemsHTML = data.items.map(product => `
-    <div class="bg-white p-6 rounded-lg border border-slate-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-      <div class="mb-4">
-        ${product.icon}
+    <div class="bg-white rounded-lg border border-slate-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col overflow-hidden">
+
+      <div class="h-48 w-full overflow-hidden">
+        <img
+          src="${product.imageUrl}"
+          alt="Produk ${product.title}"
+          class="w-full h-full object-cover"
+        >
       </div>
-      <h3 class="text-xl font-bold text-slate-900 mb-2">${product.title}</h3>
-      <p class="text-slate-600 leading-relaxed">${product.description}</p>
+
+      <div class="p-6 flex flex-col flex-grow">
+        <div class="mb-4">
+          ${product.icon} </div>
+        <h3 class="text-xl font-bold text-slate-900 mb-2">${product.title}</h3>
+        <p class="text-slate-600 leading-relaxed flex-grow">${product.description}</p>
+      </div>
     </div>
   `).join('');
 
