@@ -72,12 +72,12 @@ export function renderSystems(data) {
 
         <div class="order-1 lg:order-2 px-8">
           <img 
-            src="${data.items[0].imageUrl}" 
-            alt="Sistem MES 4.0 Terintegrasi"
+            src="/images/systems/system_erp.png" 
+            alt="Sistem ERP Terintegrasi"
             class="w-full h-auto object-contain"
           >
           <p class="text-center text-slate-500 italic mt-4">
-            Semua sistem terintegrasi dalam satu ekosistem MES 4.0
+            Semua sistem terintegrasi dalam satu ekosistem
           </p>
         </div>
 

@@ -12,7 +12,8 @@ export default defineConfig({
         katalog: resolve(__dirname, 'katalog.html'),
         produkDetail: resolve(__dirname, 'produk-detail.html'),
         fasilitasKatalog: resolve(__dirname, 'fasilitas-katalog.html'),
-        fasilitasDetail: resolve(__dirname, 'fasilitas-detail.html')
+        fasilitasDetail: resolve(__dirname, 'fasilitas-detail.html'),
+        kualitasDetail: resolve(__dirname, 'kualitas-detail.html')
       }
     }
   }

@@ -44,21 +44,21 @@ export const companyData = {
       title: "PT. OHM ELECTRONICS INDONESIA",
       tagline: "Mitra Produksi PCB Assembly SMT Terpercaya Anda",
       buttonText: "Hubungi Kami",
-      imageUrl: "/images/hero/factory.png",
+      imageUrl: "/images/hero/factory.jpeg",
       textUrl: "contact",
     },
     {
       title: "Presisi & Kualitas Teruji",
       tagline: "Dipercaya oleh Mitra Global untuk Menghadirkan Inovasi",
       buttonText: "Lihat Layanan Kami",
-      imageUrl: "/images/hero/factory-2.png",
+      imageUrl: "/images/hero/factory-2.jpeg",
       textUrl: "products",
     },
     {
       title: "Smart Factory",
       tagline: "Didukung Penuh oleh Sistem MES 4.0 Terintegrasi",
       buttonText: "Pelajari Sistem Kami",
-      imageUrl: "/images/hero/factory-4.png",
+      imageUrl: "/images/hero/factory-3.jpeg",
       textUrl: "systems",
     },
   ],
@@ -89,7 +89,7 @@ export const companyData = {
     items: [
       {
         name: "Mitra 1",
-        logoUrl: "/images/clients/client_3.png",
+        logoUrl: "/images/clients/client.png",
       },
       {
         name: "LG Electronics",
@@ -97,7 +97,7 @@ export const companyData = {
       },
       {
         name: "Mitra 3",
-        logoUrl: "/images/clients/client_4.png",
+        logoUrl: "/images/clients/client.png",
       },
       {
         name: "Panasonic",
@@ -105,7 +105,7 @@ export const companyData = {
       },
       {
         name: "Mitra 5",
-        logoUrl: "/images/clients/client_5.png",
+        logoUrl: "/images/clients/client.png",
       },
     ],
   },
@@ -164,28 +164,28 @@ export const companyData = {
         title: "Perakitan PCB Presisi (SMT & IMT)",
         description:
           "Dengan teknologi SMT & IMT canggih, kami menanam setiap komponen, dari yang terkecil hingga terkompleks, dengan akurasi dan kecepatan optimal.",
-        imageUrl: "/images/process_smt.png",
+        imageUrl: "/images/services/process_smt.png",
       },
       {
         icon: ICONS.check,
         title: "Perakitan & Uji Fungsional",
         description:
           "Produk Anda dirakit dengan sempurna (DMS & PSU), lalu wajib lolos Uji Fungsi Digital (DFT) yang ketat. Kami memastikan 100% fungsionalitas.",
-        imageUrl: "/images/process_testing.png",
+        imageUrl: "/images/services/process_testing.jpeg",
       },
       {
         icon: ICONS.qc,
         title: "Inspeksi Kualitas Menyeluruh",
         description:
           "Tidak ada yang terlewat. Tim QC kami melakukan inspeksi berlapis—baik visual maupun fungsional—untuk menjamin *zero defect* sebelum pengemasan.",
-        imageUrl: "/images/process_qc.png",
+        imageUrl: "/images/services/process_qc.jpeg",
       },
       {
         icon: ICONS.shipping,
         title: "Pengemasan & Logistik Aman",
         description:
           "Produk Anda dikemas dengan standar keamanan tinggi dan diserahkan ke sistem logistik kami yang terkoordinasi, menjamin pengiriman aman dan tepat waktu.",
-        imageUrl: "/images/process_shipping.png",
+        imageUrl: "/images/services/process_shipping.png",
       },
     ],
   },
@@ -204,7 +204,7 @@ export const companyData = {
         title: "Perakitan PCB Main Board TV",
         description:
           "Layanan perakitan *high-speed* untuk Main Board PCB TV & Monitor kompleks, menggunakan material dari mitra kami.",
-        imageUrl: "/images/product_tv_main.png",
+        imageUrl: "/images/products/product_tv_main.jpeg",
       },
       {
         id: "prod-signage",
@@ -212,7 +212,7 @@ export const companyData = {
         title: "Perakitan PCB Digital Signage",
         description:
           "Solusi perakitan PCB yang andal dan tahan lama untuk kebutuhan *commercial display* dan *digital signage* industri.",
-        imageUrl: "/images/product_signage.png",
+        imageUrl: "/images/products/product_signage.jpeg",
       },
       {
         id: "prod-psu",
@@ -220,7 +220,7 @@ export const companyData = {
         title: "Perakitan PCB PSU TV & Monitor",
         description:
           "Manufaktur Unit Power Supply (PSU) yang stabil dan efisien, dirakit dengan standar ketat untuk performa tahan lama.",
-        imageUrl: "/images/product_psu.png",
+        imageUrl: "/images/products/product_psu.jpeg",
       },
     ],
   },
@@ -265,13 +265,13 @@ export const companyData = {
         title: "Sistem Inventori Terintegrasi",
         description:
           "Sistem inventori kustom yang terhubung langsung dengan proses *shipping*, *receiving*, dan pelaporan bea cukai.",
-        imageUrl: "/images/system_inventory.png",
+        imageUrl: "/images/systems/system_inventory.png",
         colorClass: "text-yellow-500",
       },
     ],
   },
 
-  // --- Kualitas ---
+  // --- REVISI TOTAL: Struktur Data Kualitas Baru ---
   quality: {
     eyebrow: "Standar Kami",
     heading: "Kualitas adalah DNA Kami",
@@ -279,28 +279,76 @@ export const companyData = {
       "Kami tidak hanya mengklaim kualitas, kami membuktikannya. Proses kami telah divalidasi dan disertifikasi untuk memenuhi standar global terketat.",
     items: [
       {
+        id: "sertifikasi-iso", // <-- ID BARU
         icon: ICONS.iso,
         title: "ISO 9001 & 14001",
         description:
-          "Sistem manajemen mutu (ISO 9001) dan lingkungan (ISO 14001) kami telah tersertifikasi, menjamin konsistensi proses dan kepatuhan.",
-        imageUrl: "/images/quality_iso.png" // (Nama file sugesti)
+          "Sistem manajemen mutu (ISO 9001) dan lingkungan (ISO 14001) kami telah tersertifikasi.",
+        imageUrl: "/images/quality/quality_iso.png",
+        // --- DAFTAR PDF BARU (UNTUK SIDEBAR) ---
+        attachments: [
+          {
+            title: "Sertifikat ISO 9001:2015",
+            pdfUrl:
+              "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Ganti dengan PDF Anda
+          },
+          {
+            title: "Sertifikat ISO 14001:2015",
+            pdfUrl:
+              "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Ganti dengan PDF Anda
+          },
+          {
+            title: "Kebijakan Mutu & Lingkungan",
+            pdfUrl:
+              "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Ganti dengan PDF Anda
+          },
+        ],
       },
       {
+        id: "kepatuhan-rohs", // <-- ID BARU
         icon: ICONS.rohs,
         title: "Kepatuhan RoHS",
         description:
-          "Semua proses perakitan kami mematuhi arahan RoHS (Restriction of Hazardous Substances), memastikan komponen yang aman dan ramah lingkungan.",
-        imageUrl: "/images/quality_rohs.png" // (Nama file sugesti)
+          "Semua proses perakitan kami mematuhi arahan RoHS (Restriction of Hazardous Substances).",
+        imageUrl: "/images/quality/quality_rohs.png",
+        // --- DAFTAR PDF BARU (UNTUK SIDEBAR) ---
+        attachments: [
+          {
+            title: "Pernyataan Kepatuhan RoHS",
+            pdfUrl:
+              "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Ganti dengan PDF Anda
+          },
+          {
+            title: "Laporan Uji Material",
+            pdfUrl:
+              "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Ganti dengan PDF Anda
+          },
+        ],
       },
       {
+        id: "komitmen-mutu", // <-- ID BARU
         icon: ICONS.policy,
         title: "Komitmen Mutu",
         description:
-          "Kebijakan 'Zero Defect' kami didukung oleh inspeksi AOI 3D dan pengujian fungsional berlapis untuk menjamin kesempurnaan produk.",
-        imageUrl: "/images/quality_check.png" // (Nama file sugesti)
+          "Kebijakan 'Zero Defect' kami didukung oleh inspeksi AOI 3D dan pengujian fungsional.",
+        imageUrl: "/images/quality/quality_check.png",
+        // --- DAFTAR PDF BARU (UNTUK SIDEBAR) ---
+        attachments: [
+          {
+            title: "Kebijakan 'Zero Defect'",
+            pdfUrl:
+              "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Ganti dengan PDF Anda
+          },
+          {
+            title: "Prosedur Inspeksi AOI",
+            pdfUrl:
+              "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Ganti dengan PDF Anda
+          },
+        ],
       },
     ],
   },
+  // --- BATAS REVISI ---
 
   // --- Fasilitas ---
   facilities: {
@@ -316,14 +364,14 @@ export const companyData = {
         title: "Kapabilitas Perakitan SMT",
         description:
           "Lini produksi kami ditenagai oleh mesin SMT high-speed Panasonic® untuk menjamin akurasi dan efisiensi.",
-        imageUrl: "/images/facility_smt.png",
+        imageUrl: "/images/facility/facility_smt.jpeg",
         machines: [
           {
             id: "panasonic-npm-w2",
             name: "Panasonic NPM-W2",
             description:
               "Mesin SMT Mounter presisi tinggi untuk penanaman komponen 0201 dan BGA/uBGA.",
-            imageUrl: "/images/machine_npm_w2.png",
+            imageUrl: "/images/facility/machine_npm_w2.png",
             specs: [
               { label: "Tipe Mesin", value: "High-Speed Mounter" },
               { label: "Akurasi Penempatan", value: "±0.035mm" },
@@ -336,7 +384,7 @@ export const companyData = {
             name: "Heller Reflow Oven",
             description:
               "Oven reflow dengan 10 zona pemanasan untuk profil termal yang sempurna dan proses Lead-Free (RoHS).",
-            imageUrl: "/images/machine_heller_oven.png",
+            imageUrl: "/images/facility/machine_heller_oven.png",
             specs: [
               { label: "Tipe Mesin", value: "Reflow Oven" },
               { label: "Jumlah Zona", value: "10 Zona (Pemanas/Pendingin)" },
@@ -351,14 +399,14 @@ export const companyData = {
         title: "Kapabilitas Inspeksi & QC",
         description:
           "Sistem inspeksi berlapis kami memastikan 'Zero Defect' dan kepatuhan standar kualitas tertinggi.",
-        imageUrl: "/images/facility_aoi.png",
+        imageUrl: "/images/facility/facility_aoi.jpeg",
         machines: [
           {
             id: "kohyoung-spi-3d",
             name: "Koh Young 3D SPI",
             description:
               "Inspeksi Solder Paste 3D penuh untuk mendeteksi volume, area, dan ketinggian paste sebelum penanaman komponen.",
-            imageUrl: "/images/machine_spi_3d.png",
+            imageUrl: "/images/facility/machine_spi_3d.png",
             specs: [
               { label: "Tipe Mesin", value: "3D Solder Paste Inspection" },
               { label: "Inspeksi", value: "Volume, Area, Tinggi, Bridge" },
@@ -371,7 +419,7 @@ export const companyData = {
             name: "Pemtron 3D AOI",
             description:
               "Inspeksi optik 3D otomatis pasca-reflow untuk memeriksa posisi komponen, kualitas solder, dan *bridging*.",
-            imageUrl: "/images/machine_aoi_3d.png",
+            imageUrl: "/images/facility/machine_aoi_3d.jpeg",
             specs: [
               { label: "Tipe Mesin", value: "3D Automated Optical Inspection" },
               { label: "Inspeksi", value: "Posisi, Tombstone, Solder Joint" },
@@ -386,14 +434,14 @@ export const companyData = {
         title: "Kapasitas & Lini Produksi",
         description:
           "Dirancang untuk skalabilitas, dari prototipe cepat hingga produksi massal bervolume tinggi.",
-        imageUrl: "/images/facility_lines.png",
+        imageUrl: "/images/facility/facility_lines.jpeg",
         machines: [],
         specs: [
           { label: "Total Lini SMT", value: "5 Lini High-Speed" },
           { label: "Kapasitas (CPH)", value: "500,000 (Total)" },
           { label: "Ukuran PCB (Maks)", value: "510mm x 460mm" },
           { label: "Sistem", value: "MES 4.0 Integrated" },
-          { label: "Standar", value: "ISO 9001 & 14001" }, 
+          { label: "Standar", value: "ISO 9001 & 14001" },
         ],
       },
     ],
@@ -477,10 +525,10 @@ export const companyData = {
           title: "Perakitan PCB Main Board TV",
           description:
             "Contoh perakitan PCB Main Board kompleks untuk TV OLED. Fokus pada presisi penanaman BGA dan chipset.",
-          detail: { 
+          detail: {
             description_long:
               "Kami adalah spesialis dalam perakitan SMT presisi untuk Main Board PCB TV & Monitor multi-layer. Menggunakan material dari mitra, kami menjamin penempatan BGA, uBGA, dan komponen 0201 yang sempurna. Setiap board melewati inspeksi AOI 3D dan uji fungsional penuh.",
-            pdfUrl: "/pdf/datasheet-tv-main.pdf", 
+            pdfUrl: "/pdf/datasheet-tv-main.pdf",
             specs: [
               { label: "Tipe PCB", value: "Multi-layer (6-12L)" },
               { label: "Komponen Terkecil", value: "0201" },
@@ -489,8 +537,8 @@ export const companyData = {
             ],
             galleryImages: [
               "/images/product_tv_main.png",
-              "/images/product_psu.png", 
-              "/images/product_signage.png", 
+              "/images/product_psu.png",
+              "/images/product_signage.png",
             ],
           },
         },
@@ -500,7 +548,7 @@ export const companyData = {
           title: "Perakitan PCB PSU TV & Monitor",
           description:
             "Layanan perakitan Power Supply Unit (PSU) board dengan standar keamanan tinggi dan kualitas soldering komponen high-voltage.",
-          detail: { 
+          detail: {
             description_long:
               "Perakitan Power Supply Unit (PSU) kami fokus pada keandalan dan keamanan. Kami menangani perakitan komponen *through-hole* (IMT) dan SMT untuk PSU, dengan pengujian *burn-in* dan *hi-pot* yang ketat.",
             pdfUrl: "/pdf/datasheet-psu.pdf",
@@ -511,8 +559,8 @@ export const companyData = {
               { label: "Pengujian", value: "Burn-in Test, Hi-Pot Test" },
             ],
             galleryImages: [
-              "/images/product_psu.png", 
-              "/images/product_tv_main.png", 
+              "/images/product_psu.png",
+              "/images/product_tv_main.png",
             ],
           },
         },
@@ -535,9 +583,7 @@ export const companyData = {
               { label: "Proses", value: "Full Turnkey Assembly" },
               { label: "Kerahasiaan", value: "NDA Protected" },
             ],
-            galleryImages: [
-              "/images/product_cskd.png",
-            ],
+            galleryImages: ["/images/product_cskd.png"],
           },
         },
       ],

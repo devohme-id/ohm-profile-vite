@@ -1,5 +1,30 @@
 @import "tailwindcss";
 
+/* Deklarasi Font Anda (Sudah Benar) */
+@font-face {
+  font-family: 'MyFontText';
+  src: url('/fonts/LGEITextTTF-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MyFontHeadline';
+  src: url('/fonts/LGEIHeadlineTTF-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* --- REVISI: Terapkan Font ke Elemen --- */
+body {
+  font-family: 'MyFontText', sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'MyFontHeadline', sans-serif;
+}
+/* --- BATAS REVISI --- */
+
+
 /* 1. Perbaikan 'scroll-to-anchor' untuk fixed navbar */
 html {
   scroll-padding-top: 5rem; /* 80px */
