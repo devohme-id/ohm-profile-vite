@@ -193,33 +193,33 @@ export const companyData = {
   // --- Produk ---
   products: {
     eyebrow: "Portofolio Produk",
-    heading: "Fokus Kami: Perakitan PCB Assembly",
+    heading: "Fokus Kami: Perakitan PCB Assembly", // (Sudah benar)
     subheading:
-      "Keahlian inti kami adalah perakitan PCB (PCB Assembly) presisi tinggi, khususnya untuk Main Board dan Power Supply (PSU) di industri TV & Display.",
-    buttonText: "Lihat Detail Katalog",
+      "Keahlian inti kami adalah perakitan PCB (PCB Assembly) presisi tinggi, khususnya untuk Main Board dan Power Supply (PSU) di industri TV & Display.", // (Sudah benar)
+    buttonText: "Lihat Detail Katalog", // REVISI (dari "Selengkapnya")
     items: [
       {
         id: "prod-tv-main",
         icon: ICONS.tv,
-        title: "Perakitan PCB Main Board TV",
+        title: "Perakitan PCB untuk TV Main Board", // REVISI
         description:
-          "Layanan perakitan *high-speed* untuk Main Board PCB TV & Monitor kompleks, menggunakan material dari mitra kami.",
+          "Layanan perakitan *high-speed* untuk PCB Main Board TV & Monitor kompleks, menggunakan material dari mitra kami.", // REVISI
         imageUrl: "/images/products/product_tv_main.jpeg",
       },
       {
         id: "prod-signage",
         icon: ICONS.signage,
-        title: "Perakitan PCB Digital Signage",
+        title: "Perakitan PCB Digital Signage", // REVISI
         description:
-          "Solusi perakitan PCB yang andal dan tahan lama untuk kebutuhan *commercial display* dan *digital signage* industri.",
+          "Solusi perakitan PCB yang andal dan tahan lama untuk kebutuhan *commercial display* dan *digital signage* industri.", // (Sudah benar)
         imageUrl: "/images/products/product_signage.jpeg",
       },
       {
         id: "prod-psu",
         icon: ICONS.power,
-        title: "Perakitan PCB PSU TV & Monitor",
+        title: "Perakitan PCB untuk PSU TV & Monitor", // REVISI
         description:
-          "Manufaktur Unit Power Supply (PSU) yang stabil dan efisien, dirakit dengan standar ketat untuk performa tahan lama.",
+          "Layanan perakitan PCB untuk Power Supply Unit (PSU) yang stabil dan efisien, dirakit dengan standar ketat untuk performa tahan lama.", // REVISSI
         imageUrl: "/images/products/product_psu.jpeg",
       },
     ],
@@ -519,16 +519,17 @@ export const companyData = {
     gallery: {
       heading: "Galeri Produk Rakitan",
       items: [
+        // --- PRODUK 1 ---
         {
           id: "tv-main-board",
           imageUrl: "/images/product_tv_main.png",
-          title: "Perakitan PCB Main Board TV",
+          title: "Perakitan PCB untuk TV Main Board", // REVISI
           description:
             "Contoh perakitan PCB Main Board kompleks untuk TV OLED. Fokus pada presisi penanaman BGA dan chipset.",
-          detail: {
+          detail: { 
             description_long:
-              "Kami adalah spesialis dalam perakitan SMT presisi untuk Main Board PCB TV & Monitor multi-layer. Menggunakan material dari mitra, kami menjamin penempatan BGA, uBGA, dan komponen 0201 yang sempurna. Setiap board melewati inspeksi AOI 3D dan uji fungsional penuh.",
-            pdfUrl: "/pdf/datasheet-tv-main.pdf",
+              "Kami adalah spesialis dalam perakitan SMT presisi untuk Main Board PCB TV & Monitor multi-layer. Menggunakan material dari mitra, kami menjamin penempatan BGA, uBGA, dan komponen 0201 yang sempurna. Setiap board melewati inspeksi AOI 3D dan uji fungsional penuh.", // REVISI
+            pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
             specs: [
               { label: "Tipe PCB", value: "Multi-layer (6-12L)" },
               { label: "Komponen Terkecil", value: "0201" },
@@ -542,16 +543,17 @@ export const companyData = {
             ],
           },
         },
+        // --- PRODUK 2 ---
         {
           id: "tv-psu-board",
           imageUrl: "/images/product_psu.png",
-          title: "Perakitan PCB PSU TV & Monitor",
+          title: "Perakitan PCB untuk PSU TV & Monitor", // REVISI
           description:
             "Layanan perakitan Power Supply Unit (PSU) board dengan standar keamanan tinggi dan kualitas soldering komponen high-voltage.",
-          detail: {
+          detail: { 
             description_long:
               "Perakitan Power Supply Unit (PSU) kami fokus pada keandalan dan keamanan. Kami menangani perakitan komponen *through-hole* (IMT) dan SMT untuk PSU, dengan pengujian *burn-in* dan *hi-pot* yang ketat.",
-            pdfUrl: "/pdf/datasheet-psu.pdf",
+            pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
             specs: [
               { label: "Tipe Perakitan", value: "SMT & Through-Hole (IMT)" },
               { label: "Komponen", value: "Kapasitor, Transformer" },
@@ -564,6 +566,7 @@ export const companyData = {
             ],
           },
         },
+        // --- PRODUK 3 (Diganti) ---
         {
           id: "cskd-module",
           imageUrl: "/images/product_signage.png",
@@ -573,7 +576,7 @@ export const companyData = {
           detail: {
             description_long:
               "Selain mitra utama kami, kami melayani perakitan kustom untuk klien CSKD (Completely Semi Knocked Down). Bawa desain Anda, kami akan tangani perakitan presisi, QC, dan pengemasannya.",
-            pdfUrl: "/pdf/datasheet-cskd.pdf",
+            pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
             specs: [
               { label: "Tipe Layanan", value: "Custom Assembly (OEM)" },
               {
