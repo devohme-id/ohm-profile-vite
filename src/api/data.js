@@ -1,600 +1,501 @@
 // src/api/data.js
 
-// --- Ikon SVG ---
-const ICONS = {
-  cpu: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-7.5-6h7.5" /></svg>`,
-  check: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>`,
-  qc: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6" /></svg>`,
-  shipping: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.125-.504 1.125-1.125V14.25m-17.25 4.5h10.5m-10.5-4.5V6.375c0-.621.504-1.125 1.125-1.125h14.25c.621 0 1.125.504 1.125 1.125v7.875m-17.25 4.5h-2.25m0 0A2.25 2.25 0 0 1 3 16.5V6.375m18 10.125V6.375m0 0A2.25 2.25 0 0 0 18.75 4.5H5.25A2.25 2.25 0 0 0 3 6.375m18 10.125h-2.25" /></svg>`,
-  iso: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068M15.75 21H9.625A2.625 2.625 0 0 1 7 18.375V10.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>`,
-  rohs: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.09A2.25 2.25 0 0 1 18 20.501h-5.25a2.25 2.25 0 0 1-2.25-2.25v-4.09m5.56-1.313a2.625 2.625 0 1 0-5.25 0 2.625 2.625 0 0 0 5.25 0ZM21 15.085A2.25 2.25 0 0 1 18.75 13.5h-1.5a2.25 2.25 0 0 1-2.25-1.615m5.56-1.313A2.625 2.625 0 1 0 15.75 8.25m5.25 0A2.625 2.625 0 1 0 15.75 8.25" /></svg>`,
-  policy: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" /></svg>`,
-  machine: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h12A2.25 2.25 0 0 0 20.25 14.25V3m-16.5 0h16.5m-16.5 0H3.75m16.5 0H20.25m0 0V3m0 0h-.375m-13.125 0h.375m13.125 0h.375M3.75 6h16.5v3.75H3.75V6Z" /></svg>`,
-  capacity: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" /></svg>`,
-  inspection: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>`,
-  layers: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M2.25 12l8.954 8.955c.44.439 1.152-.439 1.591 0L21.75 12M2.25 12l8.954 8.955c.44.439 1.152-.439 1.591 0L21.75 12M2.25 12 12 2.25 21.75 12" /></svg>`,
-  assembly: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h12A2.25 2.25 0 0 0 20.25 14.25V3m-16.5 0h16.5m-16.5 0H3.75m16.5 0H20.25m0 0V3m0 0h-.375m-13.125 0h.375m13.125 0h.375M3.75 6h16.5v3.75H3.75V6Zm0 3.75h16.5m-16.5 0v3.75m0-3.75H3.75m16.5 0h.375m-16.875 0h16.875" /></svg>`,
-  tv: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="M6 20.25h12m-7.5-3v3m3-3v3m-10.125-3H19.875a1.125 1.125 0 0 1 1.125 1.125V18a1.125 1.125 0 0 1-1.125 1.125H4.125A1.125 1.125 0 0 1 3 18v-2.625A1.125 1.125 0 0 1 4.125 14.25Z" /></svg>`,
-  signage: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 11.25 3l-6 3.75m0 0v10.5m0-10.5L12 3m0 0 5.25 3.75M12 3v10.5m0 0-5.25 3.75m5.25-3.75 5.25 3.75m-5.25 3.75v3.75m0-3.75L6.75 18m5.25 3.75L17.25 18" /></svg>`,
-  power: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" /></svg>`,
-  system: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5 3 11.25l3.75 3.75M17.25 7.5 21 11.25l-3.75 3.75M14.25 3.75 9.75 20.25" /></svg>`,
-  inventory: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" /></svg>`,
-  rfid: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-pink-600"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.5v15a2.25 2.25 0 0 0 2.25 2.25h13.5a2.25 2.25 0 0 0 2.25-2.25V4.5M3.75 4.5h16.5M3.75 4.5 12 12m0 0 8.25-7.5M12 12V2.25" /></svg>`,
-};
-// --- Akhir Ikon SVG ---
-
 export const companyData = {
-  // --- Teks Navigasi ---
   navigation: [
     { href: "#home", text: "Beranda" },
     { href: "#about", text: "Tentang Kami" },
-    { href: "#clients", text: "Mitra" },
-    { href: "#milestones", text: "Milestones" },
-    { href: "#services", text: "Layanan" },
+    { href: "#workflow", text: "Alur Kerja" },
     { href: "#products", text: "Produk" },
-    { href: "#systems", text: "Sistem" },
-    { href: "#quality", text: "Kualitas" },
-    { href: "#facilities", text: "Fasilitas" },
+    { href: "#milestones", text: "Jejak Langkah" },
+    { href: "#clients", text: "Klien" },
     { href: "#contact", text: "Kontak" },
   ],
 
-  // --- Hero Slider ---
   hero: [
     {
-      title: "PT. OHM ELECTRONICS INDONESIA",
-      tagline: "Mitra Produksi PCB Assembly SMT Terpercaya Anda",
-      buttonText: "Hubungi Kami",
+      title: "Solusi Manufaktur Elektronik Terdepan",
+      tagline: "Spesialis PCB Assembly (SMT) dengan standar kualitas Zero Defect.",
+      buttonText: "Hubungi Tim Sales",
       imageUrl: "/images/hero/factory.jpeg",
-      textUrl: "contact",
+      textUrl: "#contact",
     },
     {
-      title: "Presisi & Kualitas Teruji",
-      tagline: "Dipercaya oleh Mitra Global untuk Menghadirkan Inovasi",
-      buttonText: "Lihat Layanan Kami",
+      title: "Kapasitas Produksi Skala Besar",
+      tagline: "5 Lini High-Speed Panasonic® siap menangani volume produksi tinggi dengan presisi.",
+      buttonText: "Lihat Kapasitas",
       imageUrl: "/images/hero/factory-2.jpeg",
-      textUrl: "products",
+      textUrl: "#products",
     },
     {
-      title: "Smart Factory",
-      tagline: "Didukung Penuh oleh Sistem MES 4.0 Terintegrasi",
-      buttonText: "Pelajari Sistem Kami",
+      title: "Sistem Pabrik Pintar 4.0",
+      tagline: "Pantau produksi secara real-time dengan integrasi MES dan transparansi total.",
+      buttonText: "Pelajari Teknologi",
       imageUrl: "/images/hero/factory-3.jpeg",
-      textUrl: "systems",
+      textUrl: "#workflow",
     },
   ],
 
-  // --- Tentang Kami ---
   about: {
-    eyebrow: "Tentang Kami",
-    heading: "Partner Produksi SMT Pilihan Anda",
+    eyebrow: "Mengapa Memilih Kami?",
+    heading: "Mitra Strategis untuk Inovasi Elektronik Anda",
     subheading:
-      "Sejak 2020, kami mendedikasikan diri untuk menjadi yang terdepan dalam manufaktur PCB Assembly, menghadirkan presisi, kualitas, dan keandalan di setiap komponen.",
+      "Berdiri sejak 2020, PT. OHM Electronics Indonesia menggabungkan teknologi SMT mutakhir dengan manajemen profesional untuk memberikan hasil perakitan yang presisi, cepat, dan efisien.",
     mission: {
       title: "Misi Kami",
-      text: "Memberikan solusi manufaktur elektronik terbaik melalui teknologi mutakhir, tim profesional yang kompeten, dan komitmen penuh pada kesuksesan mitra kami.",
+      text: "Menjadi manufaktur elektronik kelas dunia yang memprioritaskan kepuasan klien melalui kualitas tanpa kompromi dan pengiriman tepat waktu.",
     },
     info: {
       name: "PT. OHM ELECTRONICS INDONESIA",
-      category: "Manufaktur Perakitan PCB",
-      phone: "021 8932 8362",
-      location: "JL. Jababeka IV Blok C1 A,B, Cikarang Utara, Bekasi",
-      factory: "Luas Tanah 7,081㎡ / Luas Bangunan 5,029㎡",
+      category: "PCB Assembly (PCBA) Manufacturing",
+      phone: "(021) 8932 8362",
+      location: "Kawasan Industri Jababeka IV, Cikarang - Indonesia",
+      factory: "Luas Area: 7,081 m² | Kapasitas: High-Volume Production",
+    },
+    organization: {
+      heading: "Struktur Manajemen Profesional",
+      tree: [
+        {
+          role: "CEO",
+          name: "Top Management",
+          children: [
+            {
+              role: "Director (COO)",
+              name: "Operasional",
+              children: [
+                { role: "General Manager", dept: "ISE" },
+                { role: "Engineering", dept: "Teknis" },
+                { role: "Production", dept: "Manufaktur" },
+                { role: "PPIC", dept: "Perencanaan" },
+              ],
+            },
+            {
+              role: "Director (CFO)",
+              name: "Keuangan & Support",
+              children: [
+                { role: "HR & GA", dept: "Umum" },
+                { role: "Quality Control", dept: "Mutu" },
+                { role: "Accounting", dept: "Keuangan" },
+                { role: "Exim", dept: "Logistik" },
+              ],
+            },
+          ],
+        },
+      ],
     },
   },
 
-  // --- Mitra ---
   clients: {
-    eyebrow: "Dipercaya oleh Mitra Industri Terkemuka",
-    heading: "Mitra Kami",
+    eyebrow: "Kepercayaan Global",
+    heading: "Dipercaya oleh Pemimpin Industri",
     items: [
-      {
-        name: "Mitra 1",
-        logoUrl: "/images/clients/client.png",
-      },
-      {
-        name: "LG Electronics",
-        logoUrl: "/images/clients/client_lg.png",
-      },
-      {
-        name: "Mitra 3",
-        logoUrl: "/images/clients/client.png",
-      },
-      {
-        name: "Panasonic",
-        logoUrl: "/images/clients/client_panasonic.png",
-      },
-      {
-        name: "Mitra 5",
-        logoUrl: "/images/clients/client.png",
-      },
+      { name: "LG Electronics", logoUrl: "/images/clients/client_lg.png" },
+      { name: "Panasonic", logoUrl: "/images/clients/client_panasonic.png" },
+      { name: "Mitra 3", logoUrl: "/images/clients/client.png" },
+      { name: "Mitra 4", logoUrl: "/images/clients/client_lg.png" }, 
+      { name: "Mitra 5", logoUrl: "/images/clients/client_panasonic.png" },
     ],
   },
 
-  // --- Milestones ---
   milestones: {
-    eyebrow: "Perjalanan Kami",
-    heading: "Inovasi & Kemitraan yang Terus Tumbuh",
+    eyebrow: "Rekam Jejak",
+    heading: "Pertumbuhan & Pencapaian",
     subheading:
-      "Setiap pencapaian adalah bukti komitmen kami terhadap kualitas dan kepercayaan yang diberikan oleh para mitra kami.",
+      "Bukti konsistensi kami dalam menjaga kualitas dan kepercayaan mitra.",
     years: [
       {
         label: "2020",
         events: [
-          "Feb: PT OHM Electronics Indonesia resmi berdiri.",
-          "Ags: Peresmian lini SMT pertama kami, memulai era produksi presisi.",
+          "Pendirian PT OHM Electronics Indonesia.",
+          "Instalasi Lini SMT Pertama.",
         ],
       },
       {
         label: "2021",
         events: [
-          "Apr: Memulai kemitraan strategis dengan LGERC untuk Proyek Pengembangan Display.",
-          "Nov: Mencapai rekor 130 Juta titik *mounting* untuk produk display LGEIN.",
+          "Kemitraan Strategis dengan LG Electronics.",
+          "Pencapaian 130 Juta Point Mounting.",
         ],
       },
       {
         label: "2022",
         events: [
-          "Jul: Melampaui rekor 250 Juta titik *mounting*, membuktikan skalabilitas produksi kami.",
+          "Ekspansi Kapasitas (Total 5 Lini).",
+          "Rekor Produksi 250 Juta Point.",
         ],
       },
       {
         label: "2023",
         events: [
-          "Mei: Meraih penghargaan bergengsi '23Y Supplier BP Competition Silver Prize' dari LGEIN.",
+          "Penghargaan 'Best Supplier Silver Prize'.",
+          "Implementasi Sistem MES Full.",
         ],
       },
       {
         label: "2024",
         events: [
-          "Feb: Diakui sebagai '23Y Best Supplier Silver Prize' (LGEIN), membuktikan konsistensi & keandalan kami.",
+          "Sertifikasi ISO Lanjutan.",
+          "Ekspansi ke Produk Otomotif & IoT.",
         ],
       },
     ],
   },
 
-  // --- Layanan ---
-  services: {
-    eyebrow: "Keahlian Kami",
-    heading: "Presisi di Setiap Tahap Produksi",
+  workflow: {
+    eyebrow: "Sistem Terintegrasi",
+    heading: "Alur Kerja Presisi Tinggi",
     subheading:
-      "Kami mengawasi seluruh alur produksi—mulai dari komponen awal hingga produk jadi—dengan presisi dan efisiensi tanpa kompromi.",
-    items: [
+      "Setiap tahap produksi dikontrol ketat oleh sistem digital untuk meminimalisir human error.",
+    steps: [
       {
-        icon: ICONS.cpu,
-        title: "Perakitan PCB Presisi (SMT & IMT)",
-        description:
-          "Dengan teknologi SMT & IMT canggih, kami menanam setiap komponen, dari yang terkecil hingga terkompleks, dengan akurasi dan kecepatan optimal.",
-        imageUrl: "/images/services/process_smt.png",
+        id: "wf-planning",
+        icon: "calendar",
+        title: "1. Perencanaan",
+        description: "Analisis pesanan dan jadwal produksi yang akurat.",
+        subItems: [
+          { title: "Terima Order", dept: "Sales" },
+          { title: "Jadwal Produksi", dept: "PPIC" },
+          { title: "Pembelian Material", dept: "Procurement" },
+        ],
+        system: {
+          title: "Sistem Inventori",
+          text: "Sinkronisasi stok material dan jadwal secara real-time.",
+          link: "sistem-detail.html?id=sys-inventory",
+        },
       },
       {
-        icon: ICONS.check,
-        title: "Perakitan & Uji Fungsional",
-        description:
-          "Produk Anda dirakit dengan sempurna (DMS & PSU), lalu wajib lolos Uji Fungsi Digital (DFT) yang ketat. Kami memastikan 100% fungsionalitas.",
-        imageUrl: "/images/services/process_testing.jpeg",
+        id: "wf-material",
+        icon: "box",
+        title: "2. Material Masuk",
+        description: "Pemeriksaan kualitas komponen sebelum masuk lini.",
+        subItems: [
+          { title: "Cek Spesifikasi", dept: "IQC" },
+          { title: "Penyimpanan", dept: "Gudang" },
+          { title: "Persiapan Kit", dept: "Produksi" },
+        ],
+        system: {
+          title: "QR Code Tracking",
+          text: "Mencegah kesalahan pengambilan komponen dengan scan QR.",
+          link: "sistem-detail.html?id=sys-material",
+        },
       },
       {
-        icon: ICONS.qc,
-        title: "Inspeksi Kualitas Menyeluruh",
-        description:
-          "Tidak ada yang terlewat. Tim QC kami melakukan inspeksi berlapis—baik visual maupun fungsional—untuk menjamin *zero defect* sebelum pengemasan.",
-        imageUrl: "/images/services/process_qc.jpeg",
+        id: "wf-production",
+        icon: "cpu",
+        title: "3. Produksi SMT",
+        description: "Proses mounting komponen kecepatan tinggi.",
+        subItems: [
+          { title: "Solder Paste", dept: "SMT" },
+          { title: "Mounting", dept: "SMT" },
+          { title: "Reflow Oven", dept: "SMT" },
+          { title: "AOI Check", dept: "QC" },
+        ],
+        system: {
+          title: "Sistem MES 4.0",
+          text: "Monitoring output dan efisiensi mesin detik-per-detik.",
+          link: "sistem-detail.html?id=sys-mes",
+        },
       },
       {
-        icon: ICONS.shipping,
-        title: "Pengemasan & Logistik Aman",
-        description:
-          "Produk Anda dikemas dengan standar keamanan tinggi dan diserahkan ke sistem logistik kami yang terkoordinasi, menjamin pengiriman aman dan tepat waktu.",
-        imageUrl: "/images/services/process_shipping.png",
+        id: "wf-quality",
+        icon: "check-circle",
+        title: "4. Quality Control",
+        description: "Validasi fungsi dan fisik produk jadi.",
+        subItems: [
+          { title: "Uji Fungsi", dept: "QC" },
+          { title: "Visual Check", dept: "QC" },
+          { title: "Aging Test", dept: "QC" },
+        ],
+        system: {
+          title: "Sistem RFID 3R",
+          text: "Memisahkan produk OK dan NG secara otomatis.",
+          link: "sistem-detail.html?id=sys-3r",
+        },
+      },
+      {
+        id: "wf-delivery",
+        icon: "truck",
+        title: "5. Pengiriman",
+        description: "Packing aman dan pengiriman tepat waktu.",
+        subItems: [
+          { title: "Packing Akhir", dept: "Logistik" },
+          { title: "Dokumen Jalan", dept: "Admin" },
+          { title: "Pengiriman", dept: "Ekspedisi" },
+        ],
+        system: {
+          title: "Jaminan Mutu",
+          text: "Produk dikirim dengan sertifikasi lolos uji mutu.",
+          link: "kualitas-detail.html?id=komitmen-mutu",
+        },
       },
     ],
   },
 
-  // --- Produk ---
   products: {
-    eyebrow: "Portofolio Produk",
-    heading: "Fokus Kami: Perakitan PCB Assembly", // (Sudah benar)
+    eyebrow: "Kapabilitas Produksi",
+    heading: "Portofolio Produk Unggulan",
     subheading:
-      "Keahlian inti kami adalah perakitan PCB (PCB Assembly) presisi tinggi, khususnya untuk Main Board dan Power Supply (PSU) di industri TV & Display.", // (Sudah benar)
-    buttonText: "Lihat Detail Katalog", // REVISI (dari "Selengkapnya")
+      "Kami berpengalaman menangani perakitan PCB untuk berbagai kebutuhan industri elektronik.",
+    buttonText: "Lihat Detail Teknis",
     items: [
       {
         id: "prod-tv-main",
-        icon: ICONS.tv,
-        title: "Perakitan PCB untuk TV Main Board", // REVISI
+        icon: "monitor",
+        title: "Main Board TV & Display",
         description:
-          "Layanan perakitan *high-speed* untuk PCB Main Board TV & Monitor kompleks, menggunakan material dari mitra kami.", // REVISI
+          "Perakitan PCB kompleks dengan kepadatan komponen tinggi untuk LED/OLED TV.",
         imageUrl: "/images/products/product_tv_main.jpeg",
       },
       {
         id: "prod-signage",
-        icon: ICONS.signage,
-        title: "Perakitan PCB Digital Signage", // REVISI
-        description:
-          "Solusi perakitan PCB yang andal dan tahan lama untuk kebutuhan *commercial display* dan *digital signage* industri.", // (Sudah benar)
+        icon: "layers",
+        title: "Commercial Signage",
+        description: "Solusi PCB tahan lama untuk layar informasi publik yang menyala 24/7.",
         imageUrl: "/images/products/product_signage.jpeg",
       },
       {
         id: "prod-psu",
-        icon: ICONS.power,
-        title: "Perakitan PCB untuk PSU TV & Monitor", // REVISI
+        icon: "zap",
+        title: "Power Supply Unit (PSU)",
         description:
-          "Layanan perakitan PCB untuk Power Supply Unit (PSU) yang stabil dan efisien, dirakit dengan standar ketat untuk performa tahan lama.", // REVISSI
+          "Perakitan komponen daya dengan standar keamanan kelistrikan yang ketat.",
         imageUrl: "/images/products/product_psu.jpeg",
       },
     ],
   },
 
-  // --- Sistem ---
   systems: {
-    eyebrow: "Smart Factory",
-    heading: "Manufaktur Terintegrasi Berbasis Data",
-    subheading:
-      "Efisiensi, akurasi, dan kualitas kami bukan kebetulan. Semuanya didukung oleh ekosistem sistem manajemen pabrik yang modern dan terpadu.",
+    eyebrow: "Teknologi Pendukung",
+    heading: "Ekosistem Smart Factory",
+    subheading: "Infrastruktur IT kami menjamin transparansi dan akurasi data produksi.",
     items: [
       {
         id: "sys-mes",
-        icon: ICONS.system,
-        title: "Sistem MES 4.0",
+        icon: "server",
+        title: "Manufacturing Execution System (MES)",
         description:
-          "Pemantauan produksi *real-time* untuk optimalisasi alur kerja, mencegah *bottleneck*, dan memastikan ketepatan data.",
+          "Jantung digital pabrik yang merekam setiap aktivitas produksi untuk traceability penuh.",
         imageUrl: "/images/systems/system_mes.png",
-        colorClass: "text-pink-600",
+        attachments: [
+            { title: "Fitur Dashboard MES", pdfUrl: "#" },
+            { title: "Alur Data Integrasi", pdfUrl: "#" }
+        ]
       },
       {
         id: "sys-material",
-        icon: ICONS.inventory,
-        title: "Manajemen Material Cerdas",
-        description:
-          "Sistem pelacakan material berbasis QR code via aplikasi, menjamin akurasi stok dari penerimaan hingga produksi.",
+        icon: "smartphone",
+        title: "Mobile Material Control",
+        description: "Aplikasi seluler untuk scan QR Code material, mencegah kesalahan input manusia.",
         imageUrl: "/images/systems/system_qr.png",
-        colorClass: "text-blue-600",
+        attachments: [
+            { title: "Panduan Mobile Scanner", pdfUrl: "#" }
+        ]
       },
       {
         id: "sys-3r",
-        icon: ICONS.rfid,
-        title: "Sistem Admin 3R (RFID)",
+        icon: "wifi",
+        title: "RFID Quality Tracking",
         description:
-          "Manajemen Rework, Repair & Remain terintegrasi RFID, memastikan 100% produk lolos OQC (Outgoing Quality Control).",
+          "Pelacakan status perbaikan (Repair/Rework) menggunakan tag RFID.",
         imageUrl: "/images/systems/system_rfid.png",
-        colorClass: "text-green-600",
+        attachments: [
+            { title: "Prosedur 3R", pdfUrl: "#" },
+        ]
       },
       {
         id: "sys-inventory",
-        icon: ICONS.check,
-        title: "Sistem Inventori Terintegrasi",
+        icon: "database",
+        title: "Smart Inventory",
         description:
-          "Sistem inventori kustom yang terhubung langsung dengan proses *shipping*, *receiving*, dan pelaporan bea cukai.",
+          "Manajemen stok gudang yang terhubung langsung dengan rencana produksi.",
         imageUrl: "/images/systems/system_inventory.png",
-        colorClass: "text-yellow-500",
+        attachments: [
+            { title: "Laporan Stok Real-time", pdfUrl: "#" }
+        ]
       },
     ],
   },
 
-  // --- REVISI TOTAL: Struktur Data Kualitas Baru ---
   quality: {
-    eyebrow: "Standar Kami",
-    heading: "Kualitas adalah DNA Kami",
-    subheading:
-      "Kami tidak hanya mengklaim kualitas, kami membuktikannya. Proses kami telah divalidasi dan disertifikasi untuk memenuhi standar global terketat.",
+    eyebrow: "Standar Internasional",
+    heading: "Jaminan Kualitas Tanpa Kompromi",
+    subheading: "Kami mematuhi standar global untuk memastikan produk aman dan andal.",
     items: [
       {
-        id: "sertifikasi-iso", // <-- ID BARU
-        icon: ICONS.iso,
-        title: "ISO 9001 & 14001",
-        description:
-          "Sistem manajemen mutu (ISO 9001) dan lingkungan (ISO 14001) kami telah tersertifikasi.",
+        id: "sertifikasi-iso",
+        icon: "award",
+        title: "Sertifikasi ISO",
+        description: "ISO 9001 (Mutu) & ISO 14001 (Lingkungan).",
         imageUrl: "/images/quality/quality_iso.png",
-        // --- DAFTAR PDF BARU (UNTUK SIDEBAR) ---
         attachments: [
-          {
-            title: "Sertifikat ISO 9001:2015",
-            pdfUrl:
-              "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Ganti dengan PDF Anda
-          },
-          {
-            title: "Sertifikat ISO 14001:2015",
-            pdfUrl:
-              "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Ganti dengan PDF Anda
-          },
-          {
-            title: "Kebijakan Mutu & Lingkungan",
-            pdfUrl:
-              "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Ganti dengan PDF Anda
-          },
+          { title: "Sertifikat ISO 9001:2015", pdfUrl: "#" },
+          { title: "Sertifikat ISO 14001:2015", pdfUrl: "#" },
         ],
       },
       {
-        id: "kepatuhan-rohs", // <-- ID BARU
-        icon: ICONS.rohs,
-        title: "Kepatuhan RoHS",
-        description:
-          "Semua proses perakitan kami mematuhi arahan RoHS (Restriction of Hazardous Substances).",
+        id: "kepatuhan-rohs",
+        icon: "shield",
+        title: "RoHS Compliant",
+        description: "Bebas bahan berbahaya (Timbal, Merkuri, dll).",
         imageUrl: "/images/quality/quality_rohs.png",
-        // --- DAFTAR PDF BARU (UNTUK SIDEBAR) ---
         attachments: [
-          {
-            title: "Pernyataan Kepatuhan RoHS",
-            pdfUrl:
-              "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Ganti dengan PDF Anda
-          },
-          {
-            title: "Laporan Uji Material",
-            pdfUrl:
-              "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Ganti dengan PDF Anda
-          },
+          { title: "Deklarasi RoHS", pdfUrl: "#" },
         ],
       },
       {
-        id: "komitmen-mutu", // <-- ID BARU
-        icon: ICONS.policy,
-        title: "Komitmen Mutu",
-        description:
-          "Kebijakan 'Zero Defect' kami didukung oleh inspeksi AOI 3D dan pengujian fungsional.",
+        id: "komitmen-mutu",
+        icon: "check-square",
+        title: "Kebijakan Mutu",
+        description: "Target Zero Defect dengan inspeksi 3D AOI & SPI.",
         imageUrl: "/images/quality/quality_check.png",
-        // --- DAFTAR PDF BARU (UNTUK SIDEBAR) ---
         attachments: [
-          {
-            title: "Kebijakan 'Zero Defect'",
-            pdfUrl:
-              "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Ganti dengan PDF Anda
-          },
-          {
-            title: "Prosedur Inspeksi AOI",
-            pdfUrl:
-              "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Ganti dengan PDF Anda
-          },
+          { title: "Dokumen Kebijakan Mutu", pdfUrl: "#" },
         ],
       },
     ],
   },
-  // --- BATAS REVISI ---
 
-  // --- Fasilitas ---
   facilities: {
     homepage: {
-      eyebrow: "Teknologi Kami",
-      heading: "Kapabilitas Teknis & Fasilitas",
-      subheading:
-        "Spesifikasi teknis detail dari lini produksi kami. Pastikan kami adalah mitra yang tepat untuk kebutuhan presisi Anda.",
+      eyebrow: "Infrastruktur",
+      heading: "Fasilitas Produksi Canggih",
+      subheading: "Investasi teknologi terbaik untuk hasil terbaik.",
     },
     categories: [
       {
         id: "smt-assembly",
-        title: "Kapabilitas Perakitan SMT",
+        title: "Lini SMT High-Speed",
         description:
-          "Lini produksi kami ditenagai oleh mesin SMT high-speed Panasonic® untuk menjamin akurasi dan efisiensi.",
+          "Kombinasi mesin Panasonic NPM-W2 & CM-602 untuk throughput tinggi.",
         imageUrl: "/images/facility/facility_smt.jpeg",
         machines: [
           {
             id: "panasonic-npm-w2",
             name: "Panasonic NPM-W2",
-            description:
-              "Mesin SMT Mounter presisi tinggi untuk penanaman komponen 0201 dan BGA/uBGA.",
-            imageUrl: "/images/facility/machine_npm_w2.png",
+            description: "Mesin mounter modular dengan akurasi tinggi dan fleksibilitas nozzle.",
+            imageUrl: "/images/facility/facility_lines.jpeg",
             specs: [
-              { label: "Tipe Mesin", value: "High-Speed Mounter" },
-              { label: "Akurasi Penempatan", value: "±0.035mm" },
-              { label: "Komponen (Min)", value: "0201 / 01005" },
-              { label: "Fitur", value: "BGA/uBGA, Fine Pitch" },
-            ],
-          },
-          {
-            id: "heller-reflow-oven",
-            name: "Heller Reflow Oven",
-            description:
-              "Oven reflow dengan 10 zona pemanasan untuk profil termal yang sempurna dan proses Lead-Free (RoHS).",
-            imageUrl: "/images/facility/machine_heller_oven.png",
-            specs: [
-              { label: "Tipe Mesin", value: "Reflow Oven" },
-              { label: "Jumlah Zona", value: "10 Zona (Pemanas/Pendingin)" },
-              { label: "Proses", value: "Lead-Free / RoHS Compliant" },
-              { label: "Kontrol", value: "Monitoring Profil Termal" },
+              { label: "Kecepatan", value: "77,000 CPH" },
+              { label: "Akurasi", value: "±0.035mm" },
+              { label: "Ukuran PCB Max", value: "750 x 550 mm" },
             ],
           },
         ],
       },
       {
         id: "inspection-qc",
-        title: "Kapabilitas Inspeksi & QC",
-        description:
-          "Sistem inspeksi berlapis kami memastikan 'Zero Defect' dan kepatuhan standar kualitas tertinggi.",
+        title: "Teknologi Inspeksi",
+        description: "Mesin inspeksi optik (AOI) dan pasta solder (SPI) 3 Dimensi.",
         imageUrl: "/images/facility/facility_aoi.jpeg",
         machines: [
           {
             id: "kohyoung-spi-3d",
             name: "Koh Young 3D SPI",
-            description:
-              "Inspeksi Solder Paste 3D penuh untuk mendeteksi volume, area, dan ketinggian paste sebelum penanaman komponen.",
-            imageUrl: "/images/facility/machine_spi_3d.png",
+            description: "Mendeteksi volume pasta solder presisi untuk mencegah defect soldering.",
+            imageUrl: "/images/facility/facility_aoi.jpeg",
             specs: [
-              { label: "Tipe Mesin", value: "3D Solder Paste Inspection" },
-              { label: "Inspeksi", value: "Volume, Area, Tinggi, Bridge" },
-              { label: "Akurasi", value: "Tinggi (Micron level)" },
-              { label: "Fitur", value: "Closed-loop feedback ke Printer" },
-            ],
-          },
-          {
-            id: "pemtron-aoi-3d",
-            name: "Pemtron 3D AOI",
-            description:
-              "Inspeksi optik 3D otomatis pasca-reflow untuk memeriksa posisi komponen, kualitas solder, dan *bridging*.",
-            imageUrl: "/images/facility/machine_aoi_3d.jpeg",
-            specs: [
-              { label: "Tipe Mesin", value: "3D Automated Optical Inspection" },
-              { label: "Inspeksi", value: "Posisi, Tombstone, Solder Joint" },
-              { label: "Kamera", value: "High-speed 8-projection" },
-              { label: "Fitur", value: "Deteksi *defect* dini" },
+              { label: "Teknologi", value: "Moire Interferometry" },
+              { label: "Resolusi", value: "15 µm" },
             ],
           },
         ],
       },
       {
         id: "capacity-lines",
-        title: "Kapasitas & Lini Produksi",
-        description:
-          "Dirancang untuk skalabilitas, dari prototipe cepat hingga produksi massal bervolume tinggi.",
+        title: "Kapasitas Pabrik",
+        description: "Siap menangani lonjakan permintaan produksi (Peak Season).",
         imageUrl: "/images/facility/facility_lines.jpeg",
         machines: [],
         specs: [
-          { label: "Total Lini SMT", value: "5 Lini High-Speed" },
-          { label: "Kapasitas (CPH)", value: "500,000 (Total)" },
-          { label: "Ukuran PCB (Maks)", value: "510mm x 460mm" },
-          { label: "Sistem", value: "MES 4.0 Integrated" },
-          { label: "Standar", value: "ISO 9001 & 14001" },
+          { label: "Total Area", value: "7,081 m²" },
+          { label: "Jumlah Lini", value: "5 Line SMT" },
+          { label: "Total Kapasitas", value: "± 15 Juta Point/Hari" },
         ],
       },
     ],
   },
 
-  // --- Kontak ---
   contact: {
     eyebrow: "Hubungi Kami",
-    heading: "Mari Wujudkan Proyek Anda",
-    subheading:
-      "Siap mendiskusikan kebutuhan manufaktur Anda? Tim ahli kami siap memberikan solusi terbaik untuk Anda.",
+    heading: "Siap Memulai Proyek?",
+    subheading: "Diskusikan kebutuhan manufaktur Anda dengan tim ahli kami.",
     info: {
-      address:
-        "JL. Jababeka IV Blok C1 A,B Kawasan Industri Cikarang<br>Desa Pasir Gombong, Kec. Cikarang Utara<br>Kabupaten Bekasi 17530",
-      phone: "021 8932 8362 / +62 2189831548",
+      address: "JL. Jababeka IV Blok C1 A,B, Kawasan Industri Jababeka 1, Cikarang, Bekasi",
+      phone: "(021) 8932 8362",
       website: "www.ohme.kr",
       emails: [
-        { type: "FSE", email: "kimheetae@ohme.kr" },
-        { type: "Local", email: "iwan@ohme.kr" },
+        { type: "Marketing", email: "sales@ohme.kr" },
+        { type: "Support", email: "cs@ohme.kr" },
       ],
-      mapEmbedUrl:
-        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.8079172652415!2d107.13859607560701!3d-6.288959993700034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e699bc85a1e9d31%3A0x78e96b0c47c94be9!2sPT.%20OHM%20Electronics%20Indonesia!5e0!3m2!1sen!2sid!4v1763013596668!5m2!1sen!2sid",
+      mapEmbedUrl: "https://www.google.com/maps/embed?pb=...",
     },
     form: {
-      name: "Nama Anda",
-      email: "Email Anda",
-      message: "Pesan Anda",
-      button: "Kirim Pesan",
+      name: "Nama Lengkap",
+      email: "Alamat Email",
+      message: "Detail Kebutuhan Produksi...",
+      button: "Kirim Penawaran",
     },
   },
 
-  // --- Katalog Produk ---
+  contactCS: {
+    whatsappUrl: "https://wa.me/628562160039",
+  },
+
   catalogPage: {
     hero: {
-      eyebrow: "Portofolio & Kapabilitas",
-      heading: "Katalog Produk & Kapabilitas Teknis",
-      subheading:
-        "Bukti nyata komitmen kami terhadap presisi. Lihat detail produk yang telah kami rakit dan kapabilitas teknis yang kami miliki.",
+      eyebrow: "Katalog Layanan",
+      heading: "Solusi Manufaktur End-to-End",
+      subheading: "Spesifikasi teknis dan kemampuan produksi kami.",
     },
     specs: {
-      heading: "Kapabilitas Teknis Utama",
+      heading: "Mengapa Kami Unggul?",
       items: [
         {
-          icon: ICONS.machine,
-          title: "Mesin SMT High-Speed",
-          description:
-            "Jalur produksi ditenagai mesin Panasonic®, mampu menangani komponen 0201, BGA/uBGA, dan fine pitch dengan presisi tinggi.",
+          icon: "zap",
+          title: "Kecepatan Tinggi",
+          description: "Kapasitas jutaan point per hari.",
         },
         {
-          icon: ICONS.inspection,
-          title: "Inspeksi 3D AOI & SPI",
-          description:
-            "Inspeksi Solder Paste (SPI) dan Optical Inspection (AOI) 3D penuh untuk menjamin 'Zero Defect' pada penanaman komponen.",
+          icon: "maximize",
+          title: "Presisi Mikro",
+          description: "Mampu memasang chip 0201 & BGA.",
         },
         {
-          icon: ICONS.capacity,
-          title: "Kapasitas Skala Besar",
-          description:
-            "Beberapa lini SMT otomatis dengan total kapasitas CPH (Components Per Hour) tinggi, siap untuk produksi massal.",
+          icon: "check-circle",
+          title: "Jaminan Kualitas",
+          description: "Inspeksi AOI & SPI 100%.",
         },
         {
-          icon: ICONS.iso,
-          title: "Sertifikasi ISO 9001 & 14001",
-          description:
-            "Manajemen mutu (ISO 9001) dan lingkungan (ISO 14001) terstandar internasional untuk proses yang konsisten.",
+          icon: "truck",
+          title: "Tepat Waktu",
+          description: "Sistem logistik terintegrasi.",
         },
         {
-          icon: ICONS.rohs,
-          title: "Kepatuhan RoHS",
-          description:
-            "Kami memastikan semua komponen dan proses perakitan 100% mematuhi arahan RoHS (bebas timbal dan bahan berbahaya).",
+          icon: "users",
+          title: "Tim Ahli",
+          description: "Engineer bersertifikasi.",
         },
       ],
     },
     gallery: {
-      heading: "Galeri Produk Rakitan",
+      heading: "Galeri & Studi Kasus",
       items: [
-        // --- PRODUK 1 ---
         {
           id: "tv-main-board",
-          imageUrl: "/images/product_tv_main.png",
-          title: "Perakitan PCB untuk TV Main Board", // REVISI
-          description:
-            "Contoh perakitan PCB Main Board kompleks untuk TV OLED. Fokus pada presisi penanaman BGA dan chipset.",
-          detail: { 
-            description_long:
-              "Kami adalah spesialis dalam perakitan SMT presisi untuk Main Board PCB TV & Monitor multi-layer. Menggunakan material dari mitra, kami menjamin penempatan BGA, uBGA, dan komponen 0201 yang sempurna. Setiap board melewati inspeksi AOI 3D dan uji fungsional penuh.", // REVISI
-            pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-            specs: [
-              { label: "Tipe PCB", value: "Multi-layer (6-12L)" },
-              { label: "Komponen Terkecil", value: "0201" },
-              { label: "Fitur", value: "BGA/uBGA Placement" },
-              { label: "Inspeksi", value: "3D AOI, X-Ray, ICT" },
-            ],
-            galleryImages: [
-              "/images/product_tv_main.png",
-              "/images/product_psu.png",
-              "/images/product_signage.png",
-            ],
-          },
-        },
-        // --- PRODUK 2 ---
-        {
-          id: "tv-psu-board",
-          imageUrl: "/images/product_psu.png",
-          title: "Perakitan PCB untuk PSU TV & Monitor", // REVISI
-          description:
-            "Layanan perakitan Power Supply Unit (PSU) board dengan standar keamanan tinggi dan kualitas soldering komponen high-voltage.",
-          detail: { 
-            description_long:
-              "Perakitan Power Supply Unit (PSU) kami fokus pada keandalan dan keamanan. Kami menangani perakitan komponen *through-hole* (IMT) dan SMT untuk PSU, dengan pengujian *burn-in* dan *hi-pot* yang ketat.",
-            pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-            specs: [
-              { label: "Tipe Perakitan", value: "SMT & Through-Hole (IMT)" },
-              { label: "Komponen", value: "Kapasitor, Transformer" },
-              { label: "Fitur", value: "High-Voltage Soldering" },
-              { label: "Pengujian", value: "Burn-in Test, Hi-Pot Test" },
-            ],
-            galleryImages: [
-              "/images/product_psu.png",
-              "/images/product_tv_main.png",
-            ],
-          },
-        },
-        // --- PRODUK 3 (Diganti) ---
-        {
-          id: "cskd-module",
-          imageUrl: "/images/product_signage.png",
-          title: "Layanan Perakitan Kustom (CSKD)",
-          description:
-            "Layanan perakitan kustom untuk mitra non-LG (CSKD), dari prototipe hingga produksi massal.",
+          imageUrl: "/images/products/product_tv_main.jpeg",
+          title: "Main Board LED TV",
+          description: "Perakitan PCB utama untuk Smart TV 4K/8K.",
           detail: {
-            description_long:
-              "Selain mitra utama kami, kami melayani perakitan kustom untuk klien CSKD (Completely Semi Knocked Down). Bawa desain Anda, kami akan tangani perakitan presisi, QC, dan pengemasannya.",
-            pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+            description_long: "Kami memproduksi main board untuk berbagai merek TV global. Proses mencakup pemasangan BGA, konektor presisi, dan coating pelindung.",
+            pdfUrl: "#",
             specs: [
-              { label: "Tipe Layanan", value: "Custom Assembly (OEM)" },
-              {
-                label: "Fleksibilitas",
-                value: "Low-Volume hingga High-Volume",
-              },
-              { label: "Proses", value: "Full Turnkey Assembly" },
-              { label: "Kerahasiaan", value: "NDA Protected" },
+                { label: "Komponen", value: "BGA, QFP, SOP" },
+                { label: "Ukuran PCB", value: "Max 400x500mm" },
+                { label: "Surface Finish", value: "ENIG / OSP" }
             ],
-            galleryImages: ["/images/product_cskd.png"],
+            galleryImages: ["/images/products/product_tv_main.jpeg"],
           },
         },
       ],
     },
-  },
-
-  // --- Kontak CS ---
-  contactCS: {
-    whatsappUrl: "https://wa.me/628562160039",
   },
 };

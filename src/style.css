@@ -1,11 +1,42 @@
 @import "tailwindcss";
 
-/* Deklarasi Font Anda (Sudah Benar) */
+/* --- 1. KONFIGURASI TEMA (Tailwind v4) --- */
+@theme {
+  /* Font Custom */
+  --font-sans: 'MyFontText', ui-sans-serif, system-ui, sans-serif;
+  --font-headline: 'MyFontHeadline', ui-sans-serif, system-ui, sans-serif;
+
+  /* Warna Custom (Ohm Profile) */
+  --color-ohm-bg: #F0F2F5;
+  --color-ohm-text: #535353;
+  --color-ohm-grey: #879CA7;
+
+  /* Merah */
+  --color-ohm-red: #c51a50;
+  --color-ohm-red-light: #FD312E;
+  --color-ohm-red-dark: #A50034;
+
+  /* Biru */
+  --color-ohm-blue: #0b57d0;
+  --color-ohm-blue-hover: #185ABC;
+  --color-ohm-blue-light: #ebf3fc;
+
+  /* Hijau */
+  --color-ohm-green: #54FEBD;
+  --color-ohm-green-panel: #37CB46;
+  --color-ohm-green-soft: #D5F0DA;
+
+  /* Warning */
+  --color-ohm-warning: #F8BA0F;
+}
+
+/* --- 2. LOAD FONT LOKAL --- */
 @font-face {
   font-family: 'MyFontText';
   src: url('/fonts/LGEITextTTF-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -13,49 +44,38 @@
   src: url('/fonts/LGEIHeadlineTTF-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
-/* --- REVISI: Terapkan Font ke Elemen --- */
+/* --- 3. STYLE GLOBAL --- */
 body {
-  font-family: 'MyFontText', sans-serif;
+  font-family: var(--font-sans);
+  /* Sekarang class bg-ohm-bg sudah dikenali karena ada di @theme */
+  @apply bg-ohm-bg text-ohm-text antialiased;
 }
+
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'MyFontHeadline', sans-serif;
+  font-family: var(--font-headline);
+  @apply tracking-tight text-slate-900; 
 }
-/* --- BATAS REVISI --- */
 
-
-/* 1. Perbaikan 'scroll-to-anchor' untuk fixed navbar */
+/* --- 4. UTILITIES & ANIMATION --- */
 html {
-  scroll-padding-top: 5rem; /* 80px */
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
-/* 2. Base class untuk animasi 'fade-in on scroll'. */
-section[id] {
+.reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
 }
 
-section[id].is-visible {
+.reveal.active {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* 3. Base class untuk animasi teks di slider Splide. */
-.splide__slide .slide-content {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-  transition-delay: 0.3s;
-}
-
-.splide__slide.is-active .slide-content {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* 4. Animasi Marquee (Clients & Services) */
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-100%); }
@@ -63,4 +83,14 @@ section[id].is-visible {
 
 .animate-marquee {
   animation: marquee 40s linear infinite;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-slate-100;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors;
 }

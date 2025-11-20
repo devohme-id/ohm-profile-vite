@@ -7,13 +7,13 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        // Daftarkan semua 5 halaman
         main: resolve(__dirname, 'index.html'),
         katalog: resolve(__dirname, 'katalog.html'),
         produkDetail: resolve(__dirname, 'produk-detail.html'),
         fasilitasKatalog: resolve(__dirname, 'fasilitas-katalog.html'),
         fasilitasDetail: resolve(__dirname, 'fasilitas-detail.html'),
-        kualitasDetail: resolve(__dirname, 'kualitas-detail.html')
+        kualitasDetail: resolve(__dirname, 'kualitas-detail.html'),
+        sistemDetail: resolve(__dirname, 'sistem-detail.html') // <-- BARU
       }
     }
   }
